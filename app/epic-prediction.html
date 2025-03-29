@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epic Prediction</title>
+    <style>
+        body {
+            background: linear-gradient(-45deg, #00c6ff, #0072ff, #00c6ff, #0072ff);
+            background-size: 400% 400%;
+            animation: gradientBG 8s ease infinite;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        #predict-button {
+            padding: 15px 25px;
+            font-size: 1.2rem;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #predict-button:hover {
+            background-color: #218838;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        #result {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            color: #555;
+        }
+
+        .celebration, .failure {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .celebration img, .failure img {
+            width: 200px;
+            height: auto;
+        }
+
+        .celebration p {
+            font-size: 2rem;
+            color: #e63946;
+            font-weight: bold;
+        }
+
+        .failure p {
+            font-size: 1.5rem;
+            color: #555;
+            font-weight: bold;
+        }
+
+        #tries {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔮 Epic Prediction 🔮</h1>
+        <button id="predict-button">🌟 Try Your Luck! 🌟</button>
+        <div id="tries">Number of tries: 0</div>
+        <div id="result"></div>
+        <div class="celebration" id="celebration">
+            <img src="celebration.gif" alt="Celebration">
+            <p>Congratulations! You got an Epic!</p>
+        </div>
+        <div class="failure" id="failure">
+            <img src="sad.gif" alt="Sad">
+            <p>Not this time! Try again!</p>
+        </div>
+    </div>
+    <script>
+        let tries = 0;
+        const totalChances = 150;
+        let remainingEpics = 3;
+        let remainingChances = Array.from({ length: totalChances }, (_, i) => i + 1);
+
+        document.getElementById("predict-button").addEventListener("click", () => {
+            if (remainingEpics === 0) {
+                alert("All epics have been found! Game over.");
+                return;
+            }
+
+            tries++;
+            document.getElementById("tries").textContent = `Number of tries: ${tries}`;
+
+            const resultDiv = document.getElementById("result");
+            const celebrationDiv = document.getElementById("celebration");
+            const failureDiv = document.getElementById("failure");
+
+            // Reset previous results
+            resultDiv.textContent = "";
+            celebrationDiv.style.display = "none";
+            failureDiv.style.display = "none";
+
+            // Random draw without replacement
+            const randomIndex = Math.floor(Math.random() * remainingChances.length);
+            const drawnNumber = remainingChances.splice(randomIndex, 1)[0];
+
+            if (drawnNumber <= 3) {
+                remainingEpics--;
+                celebrationDiv.style.display = "block";
+                document.getElementById("predict-button").disabled = true; // Disable button after epic
+            } else {
+                failureDiv.style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>

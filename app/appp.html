@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Compliment Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        #compliment {
+            font-size: 2rem;
+            margin: 20px 0;
+            color: #555;
+            animation: float 3s ease-in-out infinite, bounceText 2s infinite;
+            position: relative;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes bounceText {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        #compliment::before {
+            content: '';
+            background: url('sparkle.gif') no-repeat center center;
+            background-size: contain;
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: -1;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        #generate-button, #epic-button {
+            padding: 15px 25px;
+            font-size: 1.2rem;
+            color: #fff;
+            background-color: #ff6f61;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            margin: 10px;
+        }
+
+        #generate-button:hover, #epic-button:hover {
+            background-color: #e63946;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✨ AI-Powered Compliment Generator ✨</h1>
+        <p id="compliment">Click the button to get a random compliment!</p>
+        <button id="generate-button">🌟 Generate Compliment 🌟</button>
+        <button id="epic-button" onclick="location.href='epic-prediction.html'">🔮 Epic Prediction 🔮</button>
+    </div>
+    <script>
+        const compliments = [
+            "You have a great sense of humor!",
+            "Your creativity is inspiring!",
+            "You are an amazing friend!",
+            "Your smile lights up the room!",
+            "You have incredible ideas!",
+            "You make the world a better place!",
+            "You are so thoughtful and kind!",
+            "Your positivity is contagious!",
+            "You are a natural leader!",
+            "You have an amazing perspective on things!"
+        ];
+
+        document.getElementById("generate-button").addEventListener("click", () => {
+            const randomIndex = Math.floor(Math.random() * compliments.length);
+            const randomCompliment = compliments[randomIndex];
+            const complimentElement = document.getElementById("compliment");
+            complimentElement.textContent = randomCompliment;
+        });
+    </script>
+</body>
+</html>
+
